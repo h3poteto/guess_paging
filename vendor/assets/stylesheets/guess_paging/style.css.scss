@@ -1,0 +1,27 @@
+.guess-paging {
+  width: 100%;
+  text-align: center;
+  ul {
+    list-style-type: none;
+    padding: 8px;
+    li {
+      font-size: 11px;
+      display: inline-block;
+      padding: 6px;
+      border-left: 1px solid rgb(180, 180, 180);
+      border-top: 1px solid rgb(180, 180, 180);
+      border-bottom: 1px solid rgb(180, 180, 180);
+      a, a:hover, a:visited {
+        color: rgb(66, 139, 202);
+        text-decoration: none;
+      }
+    }
+    li.active {
+      color: rgb(255, 255, 255);
+      background: rgb(66, 139, 202);
+    }
+    li:last-child {
+      border-right: 1px solid rgb(180, 180, 180);
+    }
+  }
+}

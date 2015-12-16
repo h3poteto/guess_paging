@@ -1,5 +1,3 @@
 require "guess_paging/version"
-
-module GuessPaging
-  # Your code goes here...
-end
+require "guess_paging/guess"
+require "guess_paging/guess_helper"
