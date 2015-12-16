@@ -1,5 +1,5 @@
-module Guess
-  class GuessPaging
+module GuessPaging
+  class Paginate
     attr_reader :current_page, :max_page, :count, :query, :records
 
     def initialize(query: nil, per_page: 10, essential: 3)
