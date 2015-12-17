@@ -13,8 +13,7 @@ module GuessPaging
       get_max_page
       if page(page_params).length < @per_page
         last_page = @query.count / @per_page + 1
-        # TODO: prepare redis client at initialize
-        RedisClient.set(@key, last_page) if last_page != get_max_page
+        GuessPaging::RedisClient.set(@key, last_page) if last_page != get_max_page
         @records = @query.limit(@per_page).offset(@per_page * (last_page - 1))
         @current_page = last_page
         @max_page = last_page
@@ -37,11 +36,11 @@ module GuessPaging
     end
 
     def get_max_page
-      max = RedisClient.get(@key).to_i
+      max = GuessPaging::RedisClient.get(@key).to_i
       if max.blank? || max.zero?
         all = @query.count
         max = all % @per_page == 0 ? all / @per_page : (all / @per_page + 1)
-        RedisClient.set(@key, max)
+        GuessPaging::RedisClient.set(@key, max)
       end
 
       count_digit = max.to_s.length
