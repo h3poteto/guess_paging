@@ -1,6 +1,6 @@
 # guess_paging
 
-guess_paging is a pagination library, and this library work wonderfully when you tread many records in RDB.
+guess_paging is a pagination library, and this library work wonderfully when you treat many records in RDB.
 
 ## Features
 ### Light workload
