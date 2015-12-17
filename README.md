@@ -6,7 +6,7 @@ guess_paging is a pagination library, and this library work wonderfully when you
 ### Light workload
 General pagination libraries calculate records size to display accurate last page number. But sometimes, count query is too heavy workload for database, if you use heavy SQL Query. In the result, page speed slow.
 
-guess_paging calculate and cache records size at the first time. From then on, guess_paging not count records size, and display last page number of suitable size. When user click that last page, once again calculate accurate last page number, and refhres cache.
+guess_paging calculate and cache records size at the first time. From then on, guess_paging not count records size, and display last page number of suitable size. When user click that last page, once again calculate accurate last page number, and refresh cache.
 When user visit first page and halfway pages, count query is not called.
 
 So, guess_paging is light workload for database, because it call count query at the first time and last page only.
