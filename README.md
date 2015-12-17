@@ -1,8 +1,15 @@
-# GuessPaging
+# guess_paging
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/guess_paging`. To experiment with that code, run `bin/console` for an interactive prompt.
+guess_paging is a pagination library, and this library work wonderfully when you tread many records in RDB.
 
-TODO: Delete this and the text above, and describe your gem
+## Features
+### Light workload
+General pagination libraries calculate records size to display accurate last page number. But sometimes, count query is too heavy workload for database, if you use heavy SQL Query. In the result, page speed slow.
+
+guess_paging calculate and cache records size at the first time. From then on, guess_paging not count records size, and display last page number of suitable size. When user click that last page, once again calculate accurate last page number, and refhres cache.
+When user visit first page and halfway pages, count query is not called.
+
+So, guess_paging is light workload for database, because it call count query at the first time and last page only.
 
 ## Installation
 
@@ -22,7 +29,58 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Setup redis
+This gem requires `redis`, so please prepare `redis-server` and setup redis in initializer.
+
+```ruby
+GuessPaging::RedisClient.setup do |config|
+  config.redis_host = '127.0.0.1'
+  config.redis_port = 6379
+end
+```
+
+### Controllers
+```ruby
+class RecordsController < ApplicationController
+  def search
+    @guess = GuessPaging::Paginate.new(
+      query: Record.where(category_id: params[:category_id].to_i),
+      per_page: 10)
+    @guess.guess(
+      page_params: params[:page]
+    )
+  end
+end
+```
+
+### Views
+```erb
+<%= paging(@guess) %>
+```
+
+### Helpers
+- output pagination view
+  
+  ```erb
+  <%= paging(@guess) %>
+  ```
+- current page number
+  
+  ```ruby
+  @guess.current_page
+  ```
+
+- last page number of suitable size
+  
+  ```ruby
+  @guess.max_page
+  ```
+
+- record number of suitable size.
+  
+  ```ruby
+  @guess.count
+  ```
 
 ## Development
 
