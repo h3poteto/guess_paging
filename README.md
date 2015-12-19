@@ -32,6 +32,8 @@ Or install it yourself as:
 ### Setup redis
 This gem requires `redis`, so please prepare `redis-server` and setup redis in initializer.
 
+For example: `config/initializers/redis.rb`
+
 ```ruby
 GuessPaging::RedisClient.setup do |config|
   config.redis_host = '127.0.0.1'
@@ -57,6 +59,15 @@ end
 ```erb
 <%= paging(@guess) %>
 ```
+
+### Assets
+Please add to:
+`app/assets/stylesheets/application.css` 
+
+```css
+//= require 'guess_paging'
+```
+
 
 ### Helpers
 - output pagination view
